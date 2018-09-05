@@ -79,14 +79,15 @@ Extending meta-model by code
 
 
 ## How to use
-Project : https://github.com/mypsycho/modit 
-### API available
+Project [https://github.com/mypsycho/modit](https://github.com/mypsycho/modit)
 
-A singleton of EmfStrecher registers specificities, provides inheritance mechanism.
+### Available API 
 
-EmfContribution provides a factory to declare extensions into the singleton
+A singleton of EmfStrecher works on a group of EPackage, registers specificities and provides inheritance mechanism.
 
-Each major function (edit, validated, etc) is supported by an engine based on EmfStrecher singleton (or function-specific)
+EmfContribution provides a factory to initialize extensions of EPackage into the singleton.
+
+Each major function (edit, validated, etc) must be supported by an engine based on EmfContribution and running with an EmfStrecher.
 
 ### Example for Sirius
 
