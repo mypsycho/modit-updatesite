@@ -76,13 +76,21 @@ Extending meta-model by code
 
 For example
 ```xtend
-      abstractConstrainedMethod_Precondition += multiline
+       IbpNamedElement += #[ // A Emf Class is extended
+          String->[IbpNamedElement| name ], // ItemProvider label provider
+          Diagnostic->#[ // Validation Defining validation rule
+            "EmptyName"->error->[NamedElement| name==null || name.trim.empty ],
+            "HiddenCar"->warning->[NamedElement| name!=null && name.trim != name ],
+        ]
+      ]
+      // Extended features
+      abstractConstrainedMethod_Precondition += multiline  // EEF: Property accepts carriage return.
       abstractConstrainedMethod_Postcondition += multiline
       abstractError_QualifiedName += shown
       abstractError_Domain += shown
       abstractExtendedReturningMethod_ReturnTypeDocumentation += #[ Tab->Tab.documentation, multiline ]
       abstractReturningMethod_ReturnTypeDocumentation += #[ Tab->Tab.documentation, multiline ]
-      abstractRootElement_StandardGeneration += Tab->Tab.generation
+      abstractRootElement_StandardGeneration += Tab->Tab.generation  // EEF: Property in a specific category.
       abstractRootElement_ErrorGeneration += Tab->Tab.generation
       abstractType_AllAttributes += hidden
       basicType_MomTypeClass += Tab->Tab.generation
