@@ -27,7 +27,7 @@ Maven/tycho, gerrit, Jenkins, Oomph, Jira/confluence (Model-Driven agile!)
 - A replicable structure for POM as the project were divided in 3 Gits
 - Layout files to keep consistency between oomph descriptors and Maven/Typho TPD
 - Reproducing Eclipse Nature philosophy in POMs using Pom parent and profile
--- For example: Xtend or projecting including code generation
+  - For example: Xtend or projecting including code generation
 
 ## Development : Limits of model-driven approach
 ### Genmodel
@@ -64,8 +64,8 @@ Different aspects should be attached in a readable unit of code.
 No massive switch forcing functional rules to be separated
 
 - In fact, developer should be able to choose between grouping 
--- by feature (validation, edition, ...)
--- by semantic (package or EClass) 
+  - by feature (validation, edition, ...)
+  - by semantic (package or EClass) 
 
 For example, display, validation and specific actions of 1 element sould be in 1 place
 
@@ -82,11 +82,9 @@ Extending meta-model by code
 Project : https://github.com/mypsycho/modit 
 ### API available
 
-A singleton of EmfStrecher 
+A singleton of EmfStrecher registers specificities, provides inheritance mechanism.
 
-registers specificities, provides inheritance mechanism
-
-EmfContribution provides a factory to declare extensions
+EmfContribution provides a factory to declare extensions into the singleton
 
 Each major function (edit, validated, etc) is supported by an engine based on EmfStrecher singleton (or function-specific)
 
