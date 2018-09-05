@@ -74,8 +74,19 @@ Extending meta-model by code
 - Readable syntax (no eAnnotation)
 - Real typed-approach (no symbolic code like plugin.xml extensions)
 
-
-
+For example
+```xtend
+      abstractConstrainedMethod_Precondition += multiline
+      abstractConstrainedMethod_Postcondition += multiline
+      abstractError_QualifiedName += shown
+      abstractError_Domain += shown
+      abstractExtendedReturningMethod_ReturnTypeDocumentation += #[ Tab->Tab.documentation, multiline ]
+      abstractReturningMethod_ReturnTypeDocumentation += #[ Tab->Tab.documentation, multiline ]
+      abstractRootElement_StandardGeneration += Tab->Tab.generation
+      abstractRootElement_ErrorGeneration += Tab->Tab.generation
+      abstractType_AllAttributes += hidden
+      basicType_MomTypeClass += Tab->Tab.generation
+```
 
 
 ## How to use
