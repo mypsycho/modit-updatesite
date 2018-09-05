@@ -1,37 +1,137 @@
-## Welcome to GitHub Pages
+# Feedback: Building a DSL at i-BP
+## Overview
+### Context
 
-You can use the [editor on GitHub](https://github.com/mypsycho/modit-updatesite/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+Project to convert Rational Rose Extensions into Eclipse plugin 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+- By translating UML stereotypes in DSL
 
-### Markdown
+Targeted DSL was important : 300+ classes, 350+ properties
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+- A lot of Stereotype packags were migrated in 4 Emf Packages
 
-```markdown
-Syntax highlighted code block
+Edition features
+- Few types of diagrams expected (4)  
+- but all properties were edited through EEF and dispatched in 4 tabs
 
-# Header 1
-## Header 2
-### Header 3
+### Presented points
+- Structural organization (in-short)
+- Eclipse plugins development
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+## Structural organization: In-short
+### Chosen factory
+Maven/tycho, gerrit, Jenkins, Oomph, Jira/confluence (Model-Driven agile!)
 
-**Bold** and _Italic_ and `Code` text
+### Notable elements
+- A replicable structure for POM as the project were divided in 3 Gits
+- Layout files to keep consistency between oomph descriptors and Maven/Typho TPD
+- Reproducing Eclipse Nature philosophy in POMs using Pom parent and profile
+-- For example: Xtend or projecting including code generation
 
-[Link](url) and ![Image](src)
-```
+## Development : Limits of model-driven approach
+### Genmodel
+A lot a boiler plates in code and hard to identify specific from mundane
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Poor handling of multi-inheritance.
 
-### Jekyll Themes
+Customization of ItemProviderAdapter is painful.
+- Even with EmfLoopHole, each sub-class needed to be rewritten.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mypsycho/modit-updatesite/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+Editing properties file was difficult with this number of Emf elements.
+- Renaming/refactoring adds pollution
 
-### Support or Contact
+### Writting Sirius Model
+(Un)Fortunately so repetitive 
+- Possibility (Compelled) to dev of a creation wizard.
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+As one-shoot strategy, wizard lacks flexibility when modifying Meta-Model.
+
+**Resulting ODesign is huge !**
+
+## Retrospective analysis
+### Needs ? (Beside using Xtend)
+Extends meta-model in seamless way with the implementation
+
+No generation for customization an Ecore Element
+
+Modifications of meta-model should be measured by compilation error
+
+### Constraints
+
+Different aspects should be attached in a readable unit of code. 
+
+No massive switch forcing functional rules to be separated
+
+- In fact, developer should be able to choose between grouping 
+-- by feature (validation, edition, ...)
+-- by semantic (package or EClass) 
+
+For example, display, validation and specific actions of 1 element sould be in 1 place
+
+## Proposition
+Extending meta-model by code
+- Readable syntax (no eAnnotation)
+- Real typed-approach (no symbolic code like plugin.xml extensions)
+
+
+
+
+
+## How to use
+Project : https://github.com/mypsycho/modit 
+### API available
+
+A singleton of EmfStrecher 
+
+registers specificities, provides inheritance mechanism
+
+EmfContribution provides a factory to declare extensions
+
+Each major function (edit, validated, etc) is supported by an engine based on EmfStrecher singleton (or function-specific)
+
+### Example for Sirius
+
+Definition of singleton : EqxModelExtensions
+
+Contribution of model : EquinoxeCoreContrib, EquinoxeComposantsMetierContrib, …
+https://github.com/mypsycho/ModIt/tree/master/tests/reversit-tests/src-gen/fr/ibp/odv/xad2/rcp/model 
+
+Engine of Sirius (limited to EEF part) : 1 simple class (<500 lines)
+https://github.com/mypsycho/ModIt/blob/master/tests/reversit-tests/src/org/mypsycho/emf/modit/reverit/test/SiriusGenerator.xtend 
+
+## Complements
+
+### To reverse engineer of pivot model (genmodel or sirius)
+EReversIt can generate Xtend class matching Emf model
+
+It eases detection of pattern in models.
+
+Use case: Round-trip with Sirius
+- Edit in run mode
+- Reverse to code
+- Update engine accordingly
+
+### I18n in edit plugin is messy
+
+Xtend syntax leads to a Class-based implementation 
+
+Typed approach (not only String)
+
+Using Xtend template instead of tricky pseudo MessageFormat
+
+## Possible complements
+
+### In progress : Create an ItemProviderAdapterFactory
+
+Bevahior can be customize endlessly (not limited to genmodel)
+
+Each function have a default behavior which can be overridden
+
+### Fields of interest
+Validation, actions
+
+### Existing POC: 
+EEF in Sirius
+
+
