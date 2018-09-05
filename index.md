@@ -94,11 +94,11 @@ Definition of singleton : EqxModelExtensions
 
 Contribution of model : EquinoxeCoreContrib, EquinoxeComposantsMetierContrib, …
 
-https://github.com/mypsycho/ModIt/tree/master/tests/reversit-tests/src-gen/fr/ibp/odv/xad2/rcp/model 
+[code sample](https://github.com/mypsycho/ModIt/tree/master/tests/reversit-tests/src-gen/fr/ibp/odv/xad2/rcp/model)
 
 Engine of Sirius (limited to EEF part) : 1 simple class (<500 lines)
 
-https://github.com/mypsycho/ModIt/blob/master/tests/reversit-tests/src/org/mypsycho/emf/modit/reverit/test/SiriusGenerator.xtend 
+[SiriusGenerator](https://github.com/mypsycho/ModIt/blob/master/tests/reversit-tests/src/org/mypsycho/emf/modit/reverit/test/SiriusGenerator.xtend)
 
 ## Complements
 
@@ -129,9 +129,11 @@ Bevahior can be customize endlessly (not limited to genmodel)
 Each function have a default behavior which can be overridden
 
 ### Fields of interest
+
 Validation, actions
 
-### Existing POC: 
+### Existing POC
+
 EEF in Sirius
 
 
