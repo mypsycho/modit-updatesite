@@ -76,11 +76,11 @@ Extending meta-model by code
 
 For example
 ```xtend
-       IbpNamedElement += #[ // A Emf Class is extended
-          String->[IbpNamedElement| name ], // ItemProvider label provider
+       XxNamedElement += #[ // A Emf Class is extended
+          String->[XxNamedElement| name ], // ItemProvider label provider
           Diagnostic->#[ // Validation Defining validation rule
-            "EmptyName"->error->[NamedElement| name==null || name.trim.empty ],
-            "HiddenCar"->warning->[NamedElement| name!=null && name.trim != name ],
+            "EmptyName"->error->[XxNamedElement| name==null || name.trim.empty ],
+            "HiddenCar"->warning->[XxNamedElement| name!=null && name.trim != name ],
         ]
       ]
       // Extended features
