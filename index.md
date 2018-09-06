@@ -1,18 +1,18 @@
-# Feedback: Building a DSL at i-BP
+# Feedback: Building a DSL with Eclipse Sirius 
 ## Overview
 ### Context
 
-Project to convert Rational Rose Extensions into Eclipse plugin 
+Project to convert Rational Rose Extensions into Eclipse plugins
 
 - By translating UML stereotypes in DSL
 
 Targeted DSL was important : 300+ classes, 350+ properties
 
-- A lot of Stereotype packags were migrated in 4 Emf Packages
+- A lot of Stereotype packages trnnsformed into 4 Emf Packages
 
 Edition features
 - Few types of diagrams expected (4)  
-- but all properties were edited through EEF and dispatched in 4 tabs
+- but all properties edited through Sirius:EEF and dispatched in 4 tabs.
 
 ### Presented points
 - Structural organization (in-short)
