@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Mod-it  (Refactoring in progress&#8230;&#8203;)</title>
+<title>Mod-it</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -427,7 +427,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Mod-it  (Refactoring in progress&#8230;&#8203;)</h1>
+<h1>Mod-it</h1>
 </div>
 <div id="content">
 <div id="preamble">
@@ -469,13 +469,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_installation_work_in_progress">Installation (work in progress&#8230;&#8203;)</h2>
+<h2 id="_installation">Installation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Install the feature Mod-it Feature (&#8230;&#8203;) from one of the following update site:</p>
+<p>Install the feature Mod-it Feature (&#8230;&#8203;) from the following update site:</p>
 </div>
 <div class="paragraph">
-<p><a href="p2">P2 Update-Site</a></p>
+<p><a href="https://bintray.com/mypsycho/modit-update-site/p2" class="bare">https://bintray.com/mypsycho/modit-update-site/p2</a></p>
 </div>
 </div>
 </div>
@@ -483,7 +483,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_origin_of_the_project">Origin of the project</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="slides/InitialFeedback.html">Project feedback</a></p>
+<p><a href="slides/InitialFeedback.html">Feedback on Sirius usage</a></p>
 </div>
 </div>
 </div>
@@ -497,7 +497,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>extension factory = EModIt.using(YourPackage.eINSTANCE)</code></pre>
+<pre class="highlightjs highlight"><code>extension factory = EModIt.using(YourPackage.eINSTANCE)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -514,7 +514,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h4 id="_how_to_create_an_element">How to create an element</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>// Single element creation
+<pre class="highlightjs highlight"><code>// Single element creation
 val pool = A.create [
   name = "AName"
 ].assemble</code></pre>
@@ -525,7 +525,7 @@ val pool = A.create [
 <h4 id="_how_to_add_children">How to add children</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>val model = A.create [
+<pre class="highlightjs highlight"><code>val model = A.create [
   name = "AName";
 
   // Single valued containment feature
@@ -555,29 +555,29 @@ val pool = A.create [
 <h4 id="_how_to_reference_between_elements">How to reference between elements</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>val model = B.create [
+<pre class="highlightjs highlight"><code>val model = B.create [
   name = "AName"
 
   // Adds one child with reference
-  childrenNodeA += "id0".aliasCreate(Node) [
+  childrenNodeA += Node.createAs("id0") [
       name = "ANodeName0"
   ]
   // Adds several children at once with references
   childrenNodeA += #[
-    "id1".aliasCreate(Node) [
+    Node.createAs("id1") [
       name = "ANodeName1"
     ],
-    "id2".aliasCreate(Node) [
+    Node.createAs("id2") [
       name = "ANodeName2"
     ]
   ]
 
   // Adds several children at once with references
   childrenNodeB += #[
-    "id3".aliasCreate(Node) [
+    Node.createAs("id3") [
       name = "ANodeName3"
     ],
-    "id4".aliasCreate(Node) [
+    Node.createAs("id4") [
       name = "ANodeName4"
     ]
   ]
@@ -604,13 +604,12 @@ assertEquals("ANodeName4", model.access(Node, "id4").name)</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>extension BoemFactory factory = new BoemFactory(BoemTestPackage.eINSTANCE).registerIdProvider([
-  if (it instanceof NamedElement) {
-    return it.name
-  }
-  return null
-])
-
+<pre class="highlightjs highlight"><code>extension EModit factory = EModit.using(BoemTestPackage.eINSTANCE)[
+  idProvider = [
+    if (it instanceof NamedElement) name
+    null
+  ]
+]
 //...
 
 val model = B.create [
@@ -655,9 +654,9 @@ assertEquals("ANodeName4", model.access(Node, "ANodeName4").name)</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>val model = A.create [
+<pre class="highlightjs highlight"><code>val model = A.create [
   name = "AName"
-  childrenNodeA += "id1".aliasCreate(Node) [
+  childrenNodeA += Node.createAs("id1") [
     name = "ANode"
   ]
 ].assemble
@@ -675,12 +674,12 @@ assertTrue(target == "id1" =&gt; model)</code></pre>
 <h4 id="_how_to_create_references">How to create references</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>val it = A.create [
+<pre class="highlightjs highlight"><code>val it = A.create [
   name = "AName"
-  autoContainementA += "id0".aliasCreate(B) [
+  autoContainementA += B.createAs("id0") [
     referenceNodeA = Node.createRef("id1")
   ]
-  childrenNodeA += "id1".aliasCreate(Node) [
+  childrenNodeA += Node.createAs("id1") [
     name = "ANode"
   ]
 ].assemble</code></pre>
@@ -691,12 +690,12 @@ assertTrue(target == "id1" =&gt; model)</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>val it = A.create [
+<pre class="highlightjs highlight"><code>val it = A.create [
   name = "AName"
-  autoContainementA += "id0".aliasCreate(B) [
+  autoContainementA += B.createAs("id0") [
     referenceNodeA = Node.ref("id1")
   ]
-  childrenNodeA += "id1".aliasCreate(Node) [
+  childrenNodeA += Node.createAs("id1") [
     name = "ANode"
   ]
 ].assemble</code></pre>
@@ -707,10 +706,10 @@ assertTrue(target == "id1" =&gt; model)</code></pre>
 <h4 id="_how_to_update_an_element">How to update an element</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>// In real code, declare pool as extension
+<pre class="highlightjs highlight"><code>// In real code, declare pool as extension
 val pool = A.create [
-  autoContainementA += "B".aliasCreate(B) [
-    autoContainementA += "D".aliasCreate(C)
+  autoContainementA += B.createAs("B") [
+    autoContainementA += C.createAs("D")
   ]
 ].assemble
 
@@ -744,33 +743,6 @@ assertEquals("NameC2", pool.access(C, "C").name)</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_contributing">Contributing</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Fork it!</p>
-</li>
-<li>
-<p>Create your feature branch:
-<code>git checkout -b my-new-feature</code></p>
-</li>
-<li>
-<p>Commit your changes:
-<code>git commit -am 'Add some feature'</code></p>
-</li>
-<li>
-<p>Push to the branch:
-<code>git push origin my-new-feature</code></p>
-</li>
-<li>
-<p>Submit a pull request.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="_license">License</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -781,8 +753,11 @@ assertEquals("NameC2", pool.access(C, "C").name)</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-09-12 21:26:37 UTC
+Last updated 2019-12-15 01:21:40 UTC
 </div>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
 </body>
 </html>
